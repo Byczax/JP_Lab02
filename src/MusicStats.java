@@ -2,7 +2,6 @@ public class MusicStats {
     String genre;
     int length;
     int count;
-
     int popularity;
 
     public MusicStats(String genre, int length, int count, int popularity) {

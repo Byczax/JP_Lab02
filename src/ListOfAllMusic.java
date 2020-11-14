@@ -8,7 +8,7 @@ public class ListOfAllMusic {
     int positivePopularity;
     int negativePopularity;
 
-    public ListOfAllMusic(int index, String genre, int length, int maxPopularity, int howManyFlag,int positivePopularity, int negativePopularity) {
+    public ListOfAllMusic(int index, String genre, int length, int maxPopularity, int howManyFlag, int positivePopularity, int negativePopularity) {
         this.index = index;
         this.genre = genre;
         this.length = length;

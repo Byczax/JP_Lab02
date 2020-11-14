@@ -6,7 +6,9 @@ import java.util.Scanner;
 
 public class DataReader {
 
-    public static void ReadParticipantsData(String fileName, HashMap<String, Integer> preferences) {
+    public static void ReadParticipantsData(String fileName,
+                                            HashMap<String, Integer> preferences,
+                                            ArrayList<ParticipantsData> participantsPreferences) {
         try (Scanner data = new Scanner(new File(fileName))) {
             data.nextLine(); //skip first line with description
 
@@ -21,15 +23,18 @@ public class DataReader {
                 int prefSum = preferences.getOrDefault(genre, 0);
                 prefSum += pref;
                 preferences.put(genre, prefSum);
+
                 if (pref < 100) {
                     String prefPart2 = strData[2];
-                    prefCalc = prefPart2.split(",");
-                    genre = prefCalc[0];
-                    pref = Integer.parseInt(prefCalc[1]);
-                    prefSum = preferences.getOrDefault(genre, 0);
-                    prefSum += pref;
-                    preferences.put(genre, prefSum);
-                }
+                    String[] prefCalc2 = prefPart2.split(",");
+                    String genre2 = prefCalc2[0];
+                    int pref2 = Integer.parseInt(prefCalc2[1]);
+                    prefSum = preferences.getOrDefault(genre2, 0);
+                    prefSum += pref2;
+                    preferences.put(genre2, prefSum);
+                    participantsPreferences.add(new ParticipantsData(Integer.parseInt(strData[0]), genre, pref, genre2, pref2));
+                } else
+                    participantsPreferences.add(new ParticipantsData(Integer.parseInt(strData[0]), genre, pref, "", 0));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -70,16 +75,15 @@ public class DataReader {
         }
     }
 
-    public static int ReadDataFromUser(String text) {
+    public static long ReadDataFromUser(String text) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(text);
-        int userValue = 0;
+        long userValue = 0;
         boolean error;
         do {
             error = false;
             try {
-
-                userValue = Integer.parseInt(scanner.nextLine());
+                userValue = Long.parseLong(scanner.nextLine());
             } catch (Exception e) {
                 error = true;
                 System.out.println("Wrong value, enter your value again");
